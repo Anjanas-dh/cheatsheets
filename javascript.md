@@ -1,5 +1,5 @@
 # javascript-cheatsheet
-A cheatsheet with all essentials, including ES6
+A cheatsheet with all essentials
 
 ## Comments
  Inline comments:
@@ -33,7 +33,7 @@ var multiply = 12 * 2; // returns 24
 var divide = 12 / 3; //returns 4
 ```
 
-## number increment and decrement
+## Number increment and decrement
 ```
 var i = 5; i++; // equals 'var i = i + 1;', returns i = 6;
 var i = 5; i--; // equals 'var i = i - 1;', returns i = 4;
@@ -65,6 +65,7 @@ var string = 'We\'re going to the park, want to come?'
 ```
 
 Escape sequences:
+
 |Code|Output|
 |-|-|
 |\'|single quote|
@@ -191,6 +192,28 @@ if(nr === 5) {
 }
 ```
 
+## Switch statement
+```
+var  nr = 5;
+switch(nr) {
+  case 0:
+  case 1:
+  case 2:
+    return "Low";
+    break;
+  case 3:
+    return "Medium";
+    break;
+  case 4:
+  case 5:
+    return "High";
+    break;
+  default:
+    return "Nothing matches in the switch: this is the default";
+    break;
+}
+```
+
 ## Operators
 
 ### Equality operator '==' and '==='
@@ -248,31 +271,45 @@ if(nr > 0 || nr === 5) {
 }
 ```
 
-## Switch statement
+## Conditional Ternary operator
+The Ternary operator is a shorter version of the `if else` statements: `condition ? statement-if-true : statement-if-false`.
 ```
-var  nr = 5;
-switch(nr) {
-  case 0:
-  case 1:
-  case 2:
-    return "Low";
-    break;
-  case 3:
-    return "Medium";
-    break;
-  case 4:
-  case 5:
-    return "High";
-    break;
-  default:
-    return "Nothing matches in the switch: this is the default";
-    break;
-}
+// this...
+var string = "Hello";
+var a = "I'm true";
+var b = "I'm false";
+
+if(string === "Hello") {
+ return a;
+} else {
+ return b;
+};
+
+//...becomes this:
+return string === "Hello" ? a : b; // returns a
+```
+You can use all operators in the condition:
+```
+var number = 12;
+return number > 10 ? a : b; // returns a
+
+var boolean = false;
+return boolean ? a : b; // returns b
+```
+You can also chain these operators, although it does not always benefits the readability of your code:
+```
+var bool = false;
+var str = "Hi";
+var a = 1;
+var b = 2;
+var c = 3;
+
+return bool ? a : str === "Hi" ? b : c; // returns b
 ```
 
 ## Objects
 ```
-var object = {
+var objectName = {
   "name": "Nugget",
   "tail": 1,
   "legs": 4,
@@ -281,15 +318,120 @@ var object = {
 ```
 Accessing object properties:
 ```
-object.name; // returns "Nugget" // using dot notation
-object["name"]; // returns "Nugget"// using brackets notation
+objectName.name; // returns "Nugget" // using dot notation
+objectName["name"]; // returns "Nugget"// using bracket notation
 ```
 Updating object properties:
 ```
-object.name = "Butters";
+objectName.name = "Butters";
 ```
 Add new property to object:
 ```
-object.sound = "miauw"; // using dot notation
-object["sound"] = "miauw"; // using brackets notation
+objectName.sound = "miauw"; // using dot notation
+objectName["sound"] = "miauw"; // using bracket notation
+```
+Delete property from object:
+```
+delete objectName.sound; // using dot notation
+delete objectName["sound"]; // using bracket notation
+```
+Testing objects for property: check if a property excists in the object:
+```
+objectName.hasOwnProperty("name"); // returns properties value
+objectName.hasOwnProperty("favorite spots"); // returns "Not Found"
+```
+## Iterations
+### while & do ... while loop
+```
+var array = [];
+var i = 0;
+while(i < 10) {
+  array.push(i);
+  i++;
+}
+// returns array = [0,1,2,3,4,5,6,7,8,9]
+```
+
+Do ... while loop: this loop will always execute the code in `do`, even if the condition in the `while` loop is not met.
+```
+var array = [];
+var i = 0;
+do {
+  array.push(i);
+  i++;
+} while (i < 5);
+```
+
+### for loop
+A for loop gets three statements: `for ([initialization]; [condition]; [final-expression])`.
+
+The `Initialization` statement executes one time before the loop starts.
+
+The `condition` statement is the condition that has to return true in order to keep looping. When this statement returns false, the for loop stops.
+
+The `final-expression` statement exectures every time a loop ends.
+```
+var array = [];
+for (var i = 0; i < 10; i++) {
+  array.push(i);
+}
+// returns array = [0,1,2,3,4,5,6,7,8,9]
+```
+Backwards iteration:
+```
+var array = [];
+for (var i = 5; i > 0; i--) {
+  array.push(i);
+}
+// returns array = [5,4,3,2,1]
+```
+Odd numbers iteration:
+```
+var array = [];
+for (var i = 0; i < 10; i += 2) {
+ array.push(i);
+}
+// returns array = [1,3,5,7,9]
+```
+Iterate through array:
+```
+var array = [1,2,3,4,5];
+for (var i = 0; i < array.length; i++) {
+ console.log(array[i]);
+}
+```
+Nesting for loops:
+```
+var array = [1,2], [3,4], [5,6];
+for (var i = 0; i < array.length; i++) {
+ for (var k = 0; k < array[i].length; k++) {
+  console.log(arr[i][k]);
+ }
+}
+```
+
+## Fractions and whole numbers
+### Random fraction
+```
+Math.random(); // returns a fraction between 0 and 1. Can be 0 but never 1
+```
+### Random whole number
+Because the fraction can't return a 1: if you want to have a random whole number returned, you'll need to multiply the result and round off the decimal with the `Math.floor()` function.
+```
+Math.floor(Math.random() * 20); // returns a random number between 0 and 19
+Math.floor(Math.random() * 10); // returns a random number between 0 and 9
+```
+### Random number within range
+```
+Math.floor(Math.random() * (max - min + 1)) + min; // returns a random number between min and max value
+```
+## ParseInt() function
+This function parses a string and returns an integer.
+If the first character in the string can't be converted, the function returns `NaN`.
+```
+var strToInt = parseInt("007"); // returns 7
+```
+The function takes another argument: redix. This specifies the base of the number in the string (between 2 and 36). See the MD docuimentation to learn more about `redix`.
+```
+var strToInt = parseInt("10011", 2); // returns 19
 ```
